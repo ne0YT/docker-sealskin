@@ -8,6 +8,7 @@ ARG VERSION
 ARG SEALSKIN_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
+ENV HOME=/config
 
 # install software
 RUN \
@@ -18,6 +19,7 @@ RUN \
     zip && \
   echo "**** install packages ****" && \
   apk add --no-cache \
+    caddy \
     openssl \
     python3 && \
   echo "**** install sealskin ****" && \
