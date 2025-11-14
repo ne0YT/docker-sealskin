@@ -22,13 +22,20 @@ param_usage_include_ports: true
 param_ports:
   - {external_port: "8000", internal_port: "8000", port_desc: "API communication port."}
   - {external_port: "8443", internal_port: "8443", port_desc: "App session port."}
+param_usage_include_net: true
+param_net: "bridge"
+param_net_desc: "Use default bridge network"
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   This image hosts the server component for the SealSkin platform. Two ports are used to access the platform from the SealSkin browser extension 8000 the api port and 8443 for app sessions.
 
-  Download the browser extension from NEEDLIVEDOWNLOADLINKHERE or land on port 8000 and download the zip bundled with this server and install unpacked.
+  Download the browser extension from [HERE](https://chromewebstore.google.com/detail/sealskin-isolation/lclgfmnljgacfdpmmmjmfpdelndbbfhk) or land on port 8000 and download the zip bundled with this server and install unpacked.
   In the options for the extension enter manual configuration and using the "admin" user fill out the endpoint for the server and the keys obtained via first run container logs or generated yourself.
+
+  ## Basic requirements
+
+  Every variable listed in the run example is required in this current version, the only backend provider to launch containers is Docker. This container is designed to work on the default bridge network for the server and launch containers into that network and proxy their internal traffic. The storage paths are required for key and storage management while their mount paths are adapted from within the container to be run on the host for launched sessions. Everyting in the stack runs as the PUID and PGID down to the container desktop sessions, it is important that the user you use has access to the `/config` and `/storage` paths. Make note of your admin private key and server public key on first container init logs you will need that to configure the browser extension and administrate the server. 
 
   ## Key & Certificate Management
 
